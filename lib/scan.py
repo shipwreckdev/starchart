@@ -1,5 +1,5 @@
 import nmap
-from lib.utils import info, failure, success, bold, italics, reset
+from .utils import info, failure, success, bold, italics, reset
 
 def Scan(ip, scan_args, port_range):
   nm = nmap.PortScanner()

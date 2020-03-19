@@ -1,9 +1,9 @@
 import boto3
 
+ec2 = boto3.resource('ec2')
+
 def InstanceIDList():
   """Builds a list of EC2 instances."""
-
-  ec2 = boto3.resource('ec2')
 
   instance_id_list = []
 
@@ -15,8 +15,6 @@ def InstanceIDList():
 def InstancePublicIPList():
   """Builds a list of EC2 public IP addresses."""
 
-  ec2 = boto3.resource('ec2')
-
   instance_ip_list = []
 
   for i in ec2.instances.all():
@@ -27,8 +25,6 @@ def InstancePublicIPList():
 def InstancePrivateIPList():
   """Builds a list of EC2 private IP addresses."""
 
-  ec2 = boto3.resource('ec2')
-
   instance_ip_list = []
 
   for i in ec2.instances.all():
@@ -36,9 +32,13 @@ def InstancePrivateIPList():
 
   return instance_ip_list
 
-def tags(instance):
-  for tags in ec2.instance.tags():
-    if tags["Key"] == 'Name':
-      instancename = tags["Value"]
+def GetNameTag(instance):
+  i = ec2.Instance(instance)
 
-  return instancename
+  taglist = []
+
+  for tags in i.tags:
+    if tags["Key"] == 'Name':
+      taglist.append(tags["Value"])
+
+  return taglist

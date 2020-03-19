@@ -28,7 +28,6 @@ scan_args = '-sS -vv -Pn -T5 {os_detect}'.format(os_detect='-O' if os_discovery 
 # Present some basic information.
 print(italics('starchart'))
 print()
-
 if provider:
   print(success + bold(' Provider: ') + provider)
 print(success + bold(' Type: ') + scan_type)
@@ -49,25 +48,7 @@ if provider == 'aws' and (scan_type == 'public_ip' or scan_type == 'private_ip')
   else:
     target_list = []
 
-  # Respond based on contents of target list.
-  if len(target_list) == 0:
-    print(failure + ' No instances found using the specified parameters.')
-  else:
-    print(info + ' Discovered instances:')
+  instances = EC2.InstanceIDList()
 
-    for t in target_list:
-      print(t)
-  
-    print()
-
-    for ip in target_list:
-      Scanner.Scan(ip, scan_args, port_range)
-
-    # Time info.
-    final_time = time.time() - start_time
-
-    print(success + ' Scan complete in %s seconds.' % (str(final_time)[0:4]))
-    print()
-else:
-  print(failure + bold(' Unrecognized scan type: ') + scan_type)
-  print()
+  for i in instances:
+    EC2.GetNameTag(i)
