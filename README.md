@@ -74,7 +74,7 @@ optional arguments:
 
 The same concept can be used when running the tool using Docker:
 
-`docker container run -i 192.168.1.1`
+`docker container run shipwreckdev/starchart -i 192.168.1.1`
 
 If running against `aws`:
 
